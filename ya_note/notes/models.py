@@ -1,6 +1,9 @@
 from django.conf import settings
 from django.db import models
+<<<<<<< HEAD
 
+=======
+>>>>>>> b68c5b1 (vn)
 from pytils.translit import slugify
 
 

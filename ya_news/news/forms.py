@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
+=======
+from django.core.exceptions import ValidationError
+from django.forms import ModelForm
+>>>>>>> b68c5b1 (vn)
 
 from .models import Comment
 
