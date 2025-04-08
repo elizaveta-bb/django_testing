@@ -2,14 +2,20 @@
 
 import datetime
 <<<<<<< HEAD
+<<<<<<< HEAD
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 =======
+=======
+>>>>>>> b68c5b1 (vn)
 
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
+<<<<<<< HEAD
+>>>>>>> b68c5b1 (vn)
+=======
 >>>>>>> b68c5b1 (vn)
 
 

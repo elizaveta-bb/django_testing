@@ -1,8 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 from pytils.translit import slugify
 
 from django import forms
 from django.core.exceptions import ValidationError
+=======
+from django import forms
+from django.core.exceptions import ValidationError
+from pytils.translit import slugify
+>>>>>>> b68c5b1 (vn)
 =======
 from django import forms
 from django.core.exceptions import ValidationError
