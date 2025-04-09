@@ -12,5 +12,3 @@ class YetAnotherTest(TestCase):
 
     def test_example_fails(self):
         self.assertTrue(False)  # Этот тест всегда будет проваливаться.
-
-
