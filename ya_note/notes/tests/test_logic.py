@@ -74,7 +74,7 @@ class TestNoteCreation(BaseTest):
         self.assertRedirects(response, self.url_success)
         with self.assertRaises(Note.DoesNotExist):
         Note.objects.get(id=note_id)
-        
+
         
     def test_not_author_cant_edit_note(self):
         note_id = self.note.id

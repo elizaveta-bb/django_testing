@@ -19,6 +19,7 @@ COMMENTS_COUNT = 3
 NEW_COMMENT = {'text': 'Новый текст'}
 NEWS_COUNT = 10
 
+
 @pytest.fixture
 def author(django_user_model):
     return django_user_model.objects.create(

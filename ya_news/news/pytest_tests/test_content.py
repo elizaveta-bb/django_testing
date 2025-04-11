@@ -39,6 +39,7 @@ def test_form_in_context(current_client, detail_url, status):
     form_in_context = 'form' in response.context
     assert form_in_context is status
 
+
 @pytest.mark.parametrize(
     'current_client',
     (AUTHOR_CLIENT,),

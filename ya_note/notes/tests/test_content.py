@@ -15,7 +15,6 @@ class TestContent(BaseTest):
                 object_notes = response.context['object_list']
                 assert_method(self.note, object_notes)
 
-
     def test_create_and_add_note_pages_contains_form(self):
         urls = (
             (self.url_add),
