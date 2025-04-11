@@ -21,7 +21,6 @@ from .conftest import ADMIN_CLIENT, ANONYMOUS, AUTHOR_CLIENT
     )
 )
 def test_pages_availability_for_users(url, current_client, status, comment):
-
     response = current_client.get(url)
     assert response.status_code == status
 

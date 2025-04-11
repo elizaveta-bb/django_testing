@@ -8,7 +8,6 @@ User = get_user_model()
 
 
 class BaseTest(TestCase):
-
     AUTHOR = 'Марти Макфлай'
     READER = 'Морти Смит'
     ANONYMOUS = 'anonymous'

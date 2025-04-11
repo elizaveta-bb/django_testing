@@ -44,16 +44,14 @@ def reader(django_user_model):
 
 
 @pytest.fixture
-def reader_client(reader, django_db_setup):
-
+def reader_client(reader):
     client = Client()
     client.force_login(reader)
     yield client
 
 
 @pytest.fixture
-def news(author):
-
+def news():
     return News.objects.create(
         title=TITLE,
         text=TEXT,
@@ -61,8 +59,7 @@ def news(author):
 
 
 @pytest.fixture
-def bulk_news_creation(author):
-
+def bulk_news_creation():
     return News.objects.bulk_create(
         News(
             title=f'{TITLE} {i}',
@@ -74,7 +71,6 @@ def bulk_news_creation(author):
 
 @pytest.fixture
 def comment(author, news):
-
     return Comment.objects.create(
         author=author,
         news=news,
@@ -84,7 +80,6 @@ def comment(author, news):
 
 @pytest.fixture
 def multiply_comments(author, news):
-
     for index in range(COMMENTS_COUNT):
         comment = Comment.objects.create(
             author=author,

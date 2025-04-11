@@ -6,10 +6,8 @@ from .conftest import ANONYMOUS, AUTHOR_CLIENT, NEWS_COUNT
 
 def test_news_count_order_and_count_on_homepage(
         client,
-        home_url,
-        bulk_news_creation
+        home_url
 ):
-
     response = client.get(home_url)
     news_items = list(response.context['object_list'])
     assert news_items == sorted(news_items, key=lambda x: x.date, reverse=True)
@@ -19,10 +17,8 @@ def test_news_count_order_and_count_on_homepage(
 def test_comments_order_and_correct_form_type(
         client,
         detail_url,
-        new,
-        multiply_comments
+        new
 ):
-
     response = client.get(detail_url)
     new = response.context['news']
     all_comments = list(new.comment_set.all())

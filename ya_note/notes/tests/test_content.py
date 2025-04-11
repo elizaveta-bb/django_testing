@@ -3,7 +3,6 @@ from notes.tests.base_test import BaseTest
 
 
 class TestContent(BaseTest):
-
     def test_notes_list_for_different_users(self):
         users_statuses = (
             (self.author_client, self.assertIn),

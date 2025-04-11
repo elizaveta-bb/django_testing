@@ -8,7 +8,6 @@ from notes.tests.base_test import BaseTest
 
 
 class TestNoteCreation(BaseTest):
-
     def test_user_can_create_note(self):
         Note.objects.all().delete()
         response = self.author_client.post(
@@ -16,7 +15,7 @@ class TestNoteCreation(BaseTest):
         )
         self.assertRedirects(response, self.url_success)
         new_notes_count = Note.objects.count()
-        self.assertEqual(new_notes_count, initial_notes_count + 1)
+        self.assertEqual(new_notes_count, 1)
         note = Note.objects.get()
         self.assertEqual(note.text, self.form_data['text'])
         self.assertEqual(note.author, self.author)
@@ -44,9 +43,7 @@ class TestNoteCreation(BaseTest):
             response, 'form', 'slug', errors=f'{self.SLUG}{WARNING}'
         )
 
-
     def test_empty_slug(self):
-        
         Note.objects.all().delete()
         self.form_data.pop('slug', None)
         response = self.author_client.post(self.url_add, data=self.form_data)
@@ -54,10 +51,8 @@ class TestNoteCreation(BaseTest):
         self.assertEqual(Note.objects.count(), 1)
         new_note = Note.objects.get()
         self.assertEqual(new_note.slug, slugify(self.form_data['title'])[:100])
-    
-    
-    def test_author_can_edit_note(self):
 
+    def test_author_can_edit_note(self):
         response = self.author_client.post(
             self.url_edit, data=self.form_data
         )
@@ -73,14 +68,13 @@ class TestNoteCreation(BaseTest):
         response = self.author_client.post(self.url_delete)
         self.assertRedirects(response, self.url_success)
         with self.assertRaises(Note.DoesNotExist):
-        Note.objects.get(id=note_id)
+            Note.objects.get(id=note_id)
 
-        
     def test_not_author_cant_edit_note(self):
         note_id = self.note.id
         response = self.reader_client.post(
-        self.url_edit, data=self.form_data
-    )
+            self.url_edit, data=self.form_data
+        )
         self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
         updated_note = Note.objects.get(id=note_id)
         self.assertEqual(updated_note.text, self.note.text)
@@ -88,11 +82,8 @@ class TestNoteCreation(BaseTest):
         self.assertEqual(updated_note.slug, self.note.slug)
         self.assertEqual(updated_note.author, self.note.author)
 
-
     def test_not_author_cant_delete_note(self):
-
         note_id = self.note.id
         response = self.reader_client.post(self.url_delete)
         self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
         Note.objects.get(id=note_id)
-

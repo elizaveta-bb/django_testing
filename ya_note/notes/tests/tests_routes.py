@@ -4,9 +4,7 @@ from notes.tests.base_test import BaseTest
 
 
 class TestRoutes(BaseTest):
-
     def test_pages_availability(self):
-
         urls = (
             (self.url_home, self.client, HTTPs.OK, self.ANONYMOUS),
             (self.url_login, self.client, HTTPs.OK, self.ANONYMOUS),
@@ -36,7 +34,6 @@ class TestRoutes(BaseTest):
                 )
 
     def test_redirects(self):
-
         urls = (
             self.url_add,
             self.url_success,
