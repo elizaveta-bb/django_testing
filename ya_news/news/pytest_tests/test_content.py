@@ -34,15 +34,15 @@ def test_comments_order_and_correct_form_type(
     'current_client, status',
     ((ANONYMOUS, False), (AUTHOR_CLIENT, True)),
 )
-def test_anonymous_has_no_form(
-    current_client,
-    detail_url,
-    status,
-    comment
-):
-
+def test_form_in_context(current_client, detail_url, status):
     response = current_client.get(detail_url)
     form_in_context = 'form' in response.context
     assert form_in_context is status
-    if form_in_context:
-        assert isinstance(response.context['form'], CommentForm)
+
+@pytest.mark.parametrize(
+    'current_client',
+    (AUTHOR_CLIENT,),
+)
+def test_form_type_in_context(current_client, detail_url):
+    response = current_client.get(detail_url)
+    assert isinstance(response.context['form'], CommentForm)

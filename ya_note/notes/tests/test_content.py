@@ -6,14 +6,15 @@ class TestContent(BaseTest):
 
     def test_notes_list_for_different_users(self):
         users_statuses = (
-            (self.author_client, True),
-            (self.reader_client, False),
+            (self.author_client, self.assertIn),
+            (self.reader_client, self.assertNotIn),
         )
-        for user, value in users_statuses:
+        for user, assert_method in users_statuses:
             with self.subTest(user=user):
                 response = user.get(self.url_list)
                 object_notes = response.context['object_list']
-                self.assertIs((self.note in object_notes), value)
+                assert_method(self.note, object_notes)
+
 
     def test_create_and_add_note_pages_contains_form(self):
         urls = (

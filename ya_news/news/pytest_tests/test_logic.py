@@ -11,16 +11,16 @@ def test_user_can_create_comment(
     author_client,
     author,
     detail_url,
-    new
+    news
 ):
     Comment.objects.all().delete()
-    comments_count = Comment.objects.count()
+    comments_count = 0
     response = author_client.post(detail_url, data=NEW_COMMENT)
     comment = Comment.objects.get()
     assertRedirects(response, f'{detail_url}#comments')
     assert Comment.objects.count() == comments_count + 1
     assert comment.text == NEW_COMMENT['text']
-    assert comment.news == new
+    assert comment.news == news
     assert comment.author == author
 
 
@@ -49,10 +49,11 @@ def test_author_can_delete_comment(
     detail_url,
     comment
 ):
-    comments_count = Comment.objects.count()
+    
     response = author_client.delete(delete_comment_url)
     assertRedirects(response, f'{detail_url}#comments')
-    assert Comment.objects.count() == comments_count - 1
+    with pytest.raises(Comment.DoesNotExist):
+        Comment.objects.get(id=comment.id)
 
 
 def test_user_cant_delete_another_comment(
@@ -60,10 +61,13 @@ def test_user_cant_delete_another_comment(
     delete_comment_url,
     comment
 ):
-    comments_count = Comment.objects.count()
+    
     response = reader_client.delete(delete_comment_url)
-    assert response.status_code == HTTPStatus.NOT_FOUND
-    assert Comment.objects.count() == comments_count
+    assert response.status_code == HTTPStatus.FORBIDDEN
+    try:
+        Comment.objects.get(id=comment.id)
+    except Comment.DoesNotExist:
+        assert False, "Comment was unexpectedly deleted"
 
 
 def test_author_can_edit_comment(

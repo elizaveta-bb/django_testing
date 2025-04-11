@@ -19,12 +19,6 @@ COMMENTS_COUNT = 3
 NEW_COMMENT = {'text': 'Новый текст'}
 NEWS_COUNT = 10
 
-
-@pytest.fixture(autouse=True)
-def add_db_for_all_tests(db):
-    pass
-
-
 @pytest.fixture
 def author(django_user_model):
     return django_user_model.objects.create(
@@ -34,11 +28,10 @@ def author(django_user_model):
 
 
 @pytest.fixture
-def author_client(author, django_db_setup):
-
+def author_client(author):
     client = Client()
     client.force_login(author)
-    yield client
+    return client
 
 
 @pytest.fixture
@@ -58,7 +51,7 @@ def reader_client(reader, django_db_setup):
 
 
 @pytest.fixture
-def new(author):
+def news(author):
 
     return News.objects.create(
         title=TITLE,
@@ -79,22 +72,22 @@ def bulk_news_creation(author):
 
 
 @pytest.fixture
-def comment(author, new):
+def comment(author, news):
 
     return Comment.objects.create(
         author=author,
-        news=new,
+        news=news,
         text=TEXT
     )
 
 
 @pytest.fixture
-def multiply_comments(author, new):
+def multiply_comments(author, news):
 
     for index in range(COMMENTS_COUNT):
         comment = Comment.objects.create(
             author=author,
-            news=new,
+            news=news,
             text=f'{TEXT} {index}',
         )
         comment.created = timezone.now() + datetime.timedelta(days=index)
@@ -107,8 +100,8 @@ def home_url():
 
 
 @pytest.fixture
-def detail_url(new):
-    return reverse('news:detail', args=(new.id,))
+def detail_url(news):
+    return reverse('news:detail', args=(news.id,))
 
 
 @pytest.fixture
