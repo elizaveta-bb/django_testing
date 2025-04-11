@@ -49,11 +49,15 @@ def test_author_can_delete_comment(
     detail_url,
     comment
 ):
-
+    
     response = author_client.delete(delete_comment_url)
     assertRedirects(response, f'{detail_url}#comments')
-    with pytest.raises(Comment.DoesNotExist):
+    
+    try:
         Comment.objects.get(id=comment.id)
+        assert False, "Comment was not deleted as expected"
+    except Comment.DoesNotExist:
+        pass
 
 
 def test_user_cant_delete_another_comment(

@@ -95,3 +95,4 @@ class TestNoteCreation(BaseTest):
         response = self.reader_client.post(self.url_delete)
         self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
         Note.objects.get(id=note_id)
+
