@@ -20,7 +20,7 @@ from .conftest import ADMIN_CLIENT, ANONYMOUS, AUTHOR_CLIENT
         (lf('edit_comment_url'), ADMIN_CLIENT, HTTPs.NOT_FOUND),
     )
 )
-def test_pages_availability_for_users(db, url, current_client, status, 
+def test_pages_availability_for_users(db, url, current_client, status,
                                       comment):
     response = current_client.get(url)
     assert response.status_code == status
