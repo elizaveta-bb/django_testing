@@ -65,6 +65,7 @@ def test_user_cant_delete_another_comment(
     comment
 ):
     response = reader_client.delete(delete_comment_url)
+    assert response.status_code == HTTPStatus.FORBIDDEN
     try:
         Comment.objects.get(id=comment.id)
     except Comment.DoesNotExist:
