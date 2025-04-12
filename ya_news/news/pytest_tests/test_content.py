@@ -15,6 +15,7 @@ def test_news_count_order_and_count_on_homepage(
 
 
 def test_comments_order_and_correct_form_type(
+        db,
         client,
         detail_url,
         new
@@ -30,7 +31,7 @@ def test_comments_order_and_correct_form_type(
     'current_client, status',
     ((ANONYMOUS, False), (AUTHOR_CLIENT, True)),
 )
-def test_form_in_context(current_client, detail_url, status):
+def test_form_in_context(db, current_client, detail_url, status):
     response = current_client.get(detail_url)
     form_in_context = 'form' in response.context
     assert form_in_context is status

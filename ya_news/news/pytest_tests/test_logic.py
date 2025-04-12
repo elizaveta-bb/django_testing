@@ -24,7 +24,7 @@ def test_user_can_create_comment(
     assert comment.author == author
 
 
-def test_anonymous_cant_create_comment(client, detail_url):
+def test_anonymous_cant_create_comment(db, client, detail_url):
     comments_count = Comment.objects.count()
     client.post(detail_url, data=NEW_COMMENT)
     assert Comment.objects.count() == comments_count
