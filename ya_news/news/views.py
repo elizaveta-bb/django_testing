@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
+from http import HTTPStatus
 
 from .forms import CommentForm
 from .models import Comment, News
