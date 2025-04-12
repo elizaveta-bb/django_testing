@@ -82,11 +82,12 @@ class CommentBase(LoginRequiredMixin):
     """Базовый класс для работы с комментариями."""
     model = Comment
     def get_object(self, queryset=None):
+
         try:
             return super().get_object(queryset)
         except Http404:
-            raise PermissionDenied("You don't have permission to access this comment.")
-
+            raise PermissionDenied("You don't have permission 
+                                   to access this comment.")
 
     def get_success_url(self):
         comment = self.get_object()
