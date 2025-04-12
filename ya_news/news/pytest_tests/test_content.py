@@ -5,6 +5,7 @@ from .conftest import ANONYMOUS, AUTHOR_CLIENT, NEWS_COUNT
 
 
 def test_news_count_order_and_count_on_homepage(
+        db,
         client,
         home_url,
         bulk_news_creation
