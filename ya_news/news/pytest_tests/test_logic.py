@@ -71,7 +71,6 @@ def test_user_cant_delete_another_comment(
         assert False, "Comment was unexpectedly deleted"
 
 
-
 def test_author_can_edit_comment(
     author_client,
     detail_url,
