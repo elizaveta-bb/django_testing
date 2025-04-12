@@ -18,7 +18,7 @@ def test_comments_order_and_correct_form_type(
         db,
         client,
         detail_url,
-        new
+        news
 ):
     response = client.get(detail_url)
     new = response.context['news']
