@@ -92,7 +92,7 @@ def test_user_cant_edit_another_comment(
         comment,
 ):
     response = reader_client.post(edit_comment_url, data=NEW_COMMENT)
-    assert response.status_code == HTTPStatus.NOT_FOUND
+    assert response.status_code == HTTPStatus.FORBIDDEN
     updated_comment = Comment.objects.get(id=comment.id)
     assert updated_comment.text == comment.text
     assert updated_comment.author == comment.author

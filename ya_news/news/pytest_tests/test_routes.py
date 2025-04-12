@@ -16,8 +16,8 @@ from .conftest import ADMIN_CLIENT, ANONYMOUS, AUTHOR_CLIENT
         (lf('signup_url'), ANONYMOUS, HTTPs.OK),
         (lf('delete_comment_url'), AUTHOR_CLIENT, HTTPs.OK),
         (lf('edit_comment_url'), AUTHOR_CLIENT, HTTPs.OK),
-        (lf('delete_comment_url'), ADMIN_CLIENT, HTTPs.NOT_FOUND),
-        (lf('edit_comment_url'), ADMIN_CLIENT, HTTPs.NOT_FOUND),
+        (lf('delete_comment_url'), ADMIN_CLIENT, HTTPs.FORBIDDEN),
+        (lf('edit_comment_url'), ADMIN_CLIENT, HTTPs.FORBIDDEN),
     )
 )
 def test_pages_availability_for_users(db, url, current_client, status,
