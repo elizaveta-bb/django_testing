@@ -3,7 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
-from http import HTTPStatus
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
 
 from .forms import CommentForm
 from .models import Comment, News
@@ -78,9 +79,11 @@ class NewsDetailView(generic.View):
         view = NewsComment.as_view()
         return view(request, *args, **kwargs)
 
+
 class CommentBase(LoginRequiredMixin):
     """Базовый класс для работы с комментариями."""
     model = Comment
+    
     def get_object(self, queryset=None):
         try:
             return super().get_object(queryset)
