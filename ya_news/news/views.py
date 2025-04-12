@@ -83,7 +83,7 @@ class NewsDetailView(generic.View):
 class CommentBase(LoginRequiredMixin):
     """Базовый класс для работы с комментариями."""
     model = Comment
-    
+
     def get_object(self, queryset=None):
         try:
             return super().get_object(queryset)
