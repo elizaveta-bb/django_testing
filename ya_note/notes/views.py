@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
 
 from .forms import NoteForm
 from .models import Note
@@ -20,6 +22,13 @@ class NoteBase(LoginRequiredMixin):
     """Базовый класс для остальных CBV."""
     model = Note
     success_url = reverse_lazy('notes:success')
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            raise PermissionDenied("""You don't have
+ to access this comment.""")
 
     def get_queryset(self):
         """Пользователь может работать только со своими заметками."""
