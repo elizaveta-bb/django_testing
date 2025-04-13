@@ -43,7 +43,8 @@ def test_user_cant_use_bad_words(author_client, detail_url):
         field='text',
         errors=WARNING
     )
-    
+
+
 def test_author_can_delete_comment(
     author_client,
     delete_comment_url,
@@ -52,9 +53,10 @@ def test_author_can_delete_comment(
 ):
     response = author_client.delete(delete_comment_url)
     assertRedirects(response, f'{detail_url}#comments')
-    assert not Comment.objects.filter(id=comment.id).exists(),
-        "Comment was not deleted as expected"
-    
+    assert (not Comment.objects.filter(id=comment.id).exists(),
+        "Comment was not deleted as expected")
+
+
  def test_user_cant_delete_another_comment(
     reader_client,
     delete_comment_url,
@@ -62,9 +64,10 @@ def test_author_can_delete_comment(
 ):
     response = reader_client.delete(delete_comment_url)
     assert response.status_code == HTTPStatus.FORBIDDEN
-    assert Comment.objects.filter(id=comment.id).exists(),
-        "Comment was unexpectedly deleted"
-        
+    assert (Comment.objects.filter(id=comment.id).exists(),
+        "Comment was unexpectedly deleted")
+
+
 def test_author_can_edit_comment(
     author_client,
     detail_url,
