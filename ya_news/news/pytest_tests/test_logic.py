@@ -66,6 +66,7 @@ def test_user_cant_delete_another_comment(
     assert response.status_code == HTTPStatus.FORBIDDEN
     assert (Comment.objects.filter(id=comment.id).exists(),
         "Comment was unexpectedly deleted")
+            
 
 
 def test_author_can_edit_comment(
