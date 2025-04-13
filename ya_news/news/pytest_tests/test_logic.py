@@ -19,8 +19,8 @@ def test_user_can_create_comment(
     comment = Comment.objects.get()
     assertRedirects(response, f'{detail_url}#comments')
     assert Comment.objects.count() == initial_count + 1, (
-        f"Ожидалось {initial_count + 1}
-        комментариев, получено {Comment.objects.count()}"
+        f"""Ожидалось {initial_count + 1}
+         комментариев, получено {Comment.objects.count()}"""
     )
     assert comment.text == NEW_COMMENT['text']
     assert comment.news == news
