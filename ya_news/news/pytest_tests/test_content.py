@@ -39,10 +39,6 @@ def test_form_in_context(db, current_client, detail_url, status):
     assert form_in_context is status
 
 
-@pytest.mark.parametrize(
-    'current_client',
-    (AUTHOR_CLIENT,),
-)
-def test_form_type_in_context(current_client, detail_url):
-    response = current_client.get(detail_url)
+def test_form_type_in_context(detail_url):
+    response = AUTHOR_CLIENT.get(detail_url)
     assert isinstance(response.context['form'], CommentForm)

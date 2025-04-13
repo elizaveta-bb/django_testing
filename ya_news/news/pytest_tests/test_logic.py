@@ -14,7 +14,6 @@ def test_user_can_create_comment(
     news
 ):
     Comment.objects.all().delete()
-    comments_count = 0
     response = author_client.post(detail_url, data=NEW_COMMENT)
     comment = Comment.objects.get()
     assertRedirects(response, f'{detail_url}#comments')
