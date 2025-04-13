@@ -80,9 +80,9 @@ def test_author_can_edit_comment(
 
 
 def test_user_cant_edit_another_comment(
-        reader_client,
-        edit_comment_url,
-        comment,
+    reader_client,
+    edit_comment_url,
+    comment,
 ):
     response = reader_client.post(edit_comment_url, data=NEW_COMMENT)
     assert response.status_code == HTTPStatus.FORBIDDEN
