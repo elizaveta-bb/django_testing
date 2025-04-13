@@ -57,7 +57,7 @@ def test_author_can_delete_comment(
         "Comment was not deleted as expected")
 
 
- def test_user_cant_delete_another_comment(
+def test_user_cant_delete_another_comment(
     reader_client,
     delete_comment_url,
     comment
