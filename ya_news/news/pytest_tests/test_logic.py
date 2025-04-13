@@ -14,12 +14,11 @@ def test_user_can_create_comment(
     news
 ):
     Comment.objects.all().delete()
-    initial_count = Comment.objects.count()
     response = author_client.post(detail_url, data=NEW_COMMENT)
     comment = Comment.objects.get()
     assertRedirects(response, f'{detail_url}#comments')
-    assert Comment.objects.count() == initial_count + 1, (
-        f"""Ожидалось {initial_count + 1}
+    assert Comment.objects.count() == 1, (
+        f"""Ожидалось {1}
          комментариев, получено {Comment.objects.count()}"""
     )
     assert comment.text == NEW_COMMENT['text']
@@ -44,37 +43,28 @@ def test_user_cant_use_bad_words(author_client, detail_url):
         field='text',
         errors=WARNING
     )
-
-
+    
 def test_author_can_delete_comment(
     author_client,
     delete_comment_url,
     detail_url,
     comment
 ):
-
     response = author_client.delete(delete_comment_url)
     assertRedirects(response, f'{detail_url}#comments')
-    try:
-        Comment.objects.get(id=comment.id)
-        assert False, "Comment was not deleted as expected"
-    except Comment.DoesNotExist:
-        pass
-
-
-def test_user_cant_delete_another_comment(
+    assert not Comment.objects.filter(id=comment.id).exists(),
+    "Comment was not deleted as expected"
+    
+ def test_user_cant_delete_another_comment(
     reader_client,
     delete_comment_url,
     comment
 ):
     response = reader_client.delete(delete_comment_url)
     assert response.status_code == HTTPStatus.FORBIDDEN
-    try:
-        Comment.objects.get(id=comment.id)
-    except Comment.DoesNotExist:
-        assert False, "Comment was unexpectedly deleted"
-
-
+    assert Comment.objects.filter(id=comment.id).exists(),
+    "Comment was unexpectedly deleted"
+        
 def test_author_can_edit_comment(
     author_client,
     detail_url,
