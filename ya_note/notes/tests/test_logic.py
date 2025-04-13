@@ -65,12 +65,12 @@ class TestNoteCreation(BaseTest):
         self.assertEqual(updated_note.author, self.note.author)
 
     def test_author_can_delete_note(self):
-        note_id = self.note.id
-        response = self.author_client.post(self.url_delete)
-        self.assertRedirects(response, self.url_success)
-        self.assertFalse(
-            Note.objects.filter(id=note_id).exists(),
-            "Заметка не была удалена из базы данных"
+    note_id = self.note.id
+    response = self.author_client.post(self.url_delete)
+    self.assertRedirects(response, self.url_success)
+    self.assertFalse(
+        Note.objects.filter(id=note_id).exists(),
+        "Заметка не была удалена из базы данных"
     )
 
     def test_not_author_cant_edit_note(self):
