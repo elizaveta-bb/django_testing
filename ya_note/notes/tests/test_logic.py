@@ -69,14 +69,14 @@ class TestNoteCreation(BaseTest):
         response = self.author_client.post(self.url_delete)
         self.assertRedirects(response, self.url_success)
         self.assertFalse(
-        Note.objects.filter(id=note_id).exists(),
-        "Заметка не была удалена из базы данных"
-    )
+            Note.objects.filter(id=note_id).exists(),
+            "Заметка не была удалена из базы данных"
+        )
 
     def test_not_author_cant_edit_note(self):
         original_note = Note.objects.get(id=self.note.id)
         response = self.reader_client.post(
-        self.url_edit, 
+        self.url_edit,
         data=self.form_data
     )
         self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
@@ -90,7 +90,7 @@ class TestNoteCreation(BaseTest):
         initial_count = Note.objects.count()
         response = self.reader_client.post(self.url_delete)
         self.assertEqual(
-            response.status_code, 
+            response.status_code,
             HTTPStatus.FORBIDDEN,
             "Проверьте, что не-автор не может удалить заметку"
     )
